@@ -106,8 +106,8 @@ It is required that your private key files are NOT accessible by others.
 This private key will be ignored.</code></pre><p>可以用更改文件属性的方法来解决</p>
 <pre><code>chmod 0600 id_rsa</code></pre>]]></content>
       <tags>
-        <tag>VPS</tag>
         <tag>SSH</tag>
+        <tag>VPS</tag>
         <tag>密钥</tag>
         <tag>登录</tag>
       </tags>
@@ -199,8 +199,8 @@ tcp_bbr                20480  14</code></pre>]]></content>
       <tags>
         <tag>BBR</tag>
         <tag>开启</tag>
-        <tag>访问速度</tag>
         <tag>VPS</tag>
+        <tag>访问速度</tag>
         <tag>加速</tag>
       </tags>
   </entry>
