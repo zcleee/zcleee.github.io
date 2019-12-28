@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python获取当前运行文件路径的方法</title>
+    <url>/posts/2019-12-28-18016.html</url>
+    <content><![CDATA[<p>下面是python获取当前运行文件路径的方法</p>
+<a id="more"></a>
+<h2 id="通过-file-获取"><a href="#通过-file-获取" class="headerlink" title="通过 file 获取"></a>通过 <strong>file</strong> 获取</h2><pre><code>os.path.dirname(os.path.realpath(__file__))</code></pre><h2 id="通过-getcwd-获取当前路径"><a href="#通过-getcwd-获取当前路径" class="headerlink" title="通过 getcwd 获取当前路径"></a>通过 getcwd 获取当前路径</h2><pre><code>os.getcwd()</code></pre><p>更详细的 path 文档<a href="https://docs.python.org/2/library/os.path.html" target="_blank" rel="noopener">https://docs.python.org/2/library/os.path.html</a></p>
+<h2 id="其它相关路径"><a href="#其它相关路径" class="headerlink" title="其它相关路径"></a>其它相关路径</h2><pre><code>#当前文件路径
+print(os.path.realpath(__file__))
+#当前文件所在的目录，即父路径
+print(os.path.split(os.path.realpath(__file__))[0])
+#找到父路径下的其他文件，即同级的其他文件
+print(os.path.join(proDir,&quot;config.ini&quot;))</code></pre>]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>文件路径</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python PIL 生成图片验证码</title>
     <url>/posts/2019-12-28-63494.html</url>
     <content><![CDATA[<p>下面是一个用python PIL 生成验证码的函数。</p>
