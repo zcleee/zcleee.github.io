@@ -63,24 +63,61 @@
         <div class="main-left-body">
           
 <div class="box main-body">
-    <h1>OpenWrt 国内源</h1>
+    <h1>python PIL 生成图片验证码</h1>
     <div class="post-info gray5 f6">
-        &#x1F559; 2019-12-24 16:37:18
+        &#x1F559; 2019-12-28 15:57:55
         
     </div>
     <div class="markdown-body" id="articleContent">
-      <p>国内可用 OpenWrt 镜像</p>
+      <p>下面是一个用python PIL 生成验证码的函数。</p>
 <a id="more"></a>
-<ul>
-<li><a href="https://mirrors.ustc.edu.cn/lede/" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/lede/</a></li>
-<li><a href="https://mirrors.tuna.tsinghua.edu.cn/openwrt/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/openwrt/</a> 只更新到 chaos_calmer/15.05.1/</li>
-<li><a href="https://mirrors.tuna.tsinghua.edu.cn/lede/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/lede/</a> openwrt 最新版</li>
-</ul>
-<p>官方网站推荐的其他镜像</p>
-<ul>
-<li><a href="https://openwrt.org/downloads#mirrors" target="_blank" rel="noopener">https://openwrt.org/downloads#mirrors</a></li>
-</ul>
-<p>修改文件 <code>/etc/opkg/distfeeds.conf</code><br><img src="/images/posts/OpenWrt.png" alt="OpenWrt"></p>
+<p>过程是：创建一张有底色的图片、在背景上添加杂色、写上特定文字、保存图片</p>
+<pre><code># -*- coding: utf-8 -*-
+
+import random
+import Image
+import ImageFont
+import ImageDraw
+import ImageFilter
+
+
+def gen_captcha(text, fnt, fnt_sz, file_name, fmt=&#39;JPEG&#39;):
+    # 随机生成背景色
+    fgcolor = random.randint(0,0xffff00)
+    bgcolor = fgcolor ^ 0xffffff
+
+    # 生成文字
+    font = ImageFont.truetype(fnt,fnt_sz)
+    dim = font.getsize(text)
+
+    im = Image.new(&#39;RGB&#39;, (dim[0]+5,dim[1]+5), bgcolor)
+    d = ImageDraw.Draw(im)
+    x, y = im.size
+    r = random.randint
+
+    # 给背景添加杂色
+    for num in range(100):
+        d.rectangle((r(0,x), r(0,y), r(0,x), r(0,y)), fill=r(0, 0xffffff))
+
+    # 添加文字
+    d.text((3,3), text, font=font, fill=fgcolor)
+    im = im.filter(ImageFilter.EDGE_ENHANCE_MORE)
+
+    im.save(file_name, format=fmt)
+
+
+def gen_random_word(wordLen=6):
+    allowedChars = &quot;abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789&quot;
+    word = &quot;&quot;
+    for i in range(0, wordLen):
+        word = word + allowedChars[random.randint(0,0xffffff) % len(allowedChars)]
+    return word
+
+if __name__ == &#39;__main__&#39;:
+    word = gen_random_word()
+    print word
+    gen_captcha(word.strip(), &#39;porkys.ttf&#39;, 65, &quot;test.jpg&quot;)</code></pre><h2 id="进阶使用"><a href="#进阶使用" class="headerlink" title="进阶使用"></a>进阶使用</h2><p>一般情况不会要求填写验证码，避免影响用户体验。在特定情况下，如当用户登录密码出错N 次后，当用户频繁发贴时。</p>
+<p>可对验证码作更复杂的变换，当用户输入验证码出错次数为N 时，增加其难度，如增加字符集、变化字体等。</p>
 
 
     </div>
@@ -89,28 +126,30 @@
          本文标签： 
          
          
-         <a href="/tags/OpenWrt/" title="OpenWrt">OpenWrt</a> 
+         <a href="/tags/python/" title="python">python</a> 
          
          
          
-         <a href="/tags/%E5%9B%BD%E5%86%85/" title="国内">国内</a> 
+         <a href="/tags/PIL/" title="PIL">PIL</a> 
+         
+         
+         
+         <a href="/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/" title="验证码">验证码</a> 
          
          
     </div>
 
     <ul class="nearby-bar">
           
-            <li>较新文章： <a href="/posts/2019-12-24-6349.html" title="Mac pip2 与 pip3 共存">Mac pip2 与 pip3 共存</a></li>
           
-          
-            <li>较旧文章： <a href="/posts/2019-12-24-27787.html" title="开启BBR 加速小VPS访问速度">开启BBR 加速小VPS访问速度</a></li>
+            <li>较旧文章： <a href="/posts/2019-12-28-4278.html" title="用python 正确计算大文件md5 值">用python 正确计算大文件md5 值</a></li>
           
     </ul>
 
 </div>
 
 <div class="box copy-info">
-    <div>本文网址: https://blog.leezc.cn/posts/2019-12-24-11985.html（转载注明出处）</div>
+    <div>本文网址: https://blog.leezc.cn/posts/2019-12-28-63494.html（转载注明出处）</div>
     <div>如果你有任何建议或疑问可以在下面 <a href="#vcomments" rel="nofollow">留言</a></div>
 </div>
 
@@ -123,7 +162,7 @@
 
 
 
-<h5>相关推荐</h5><ul class="related-ul2"><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-24-46437.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/Openwrt-BBR.jpg');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-24-46437.html" class="post-card-content-link"><div class="post-title">Openwrt 路由上开启BBR</div><div class="post-des post-excerpt gray7 pb-2"><p>BBR 是一种协议算法，在 Openwrt 路由上启用 BBR 还是有一定作用的。 Openwrt 18.* 后都自带模块 <code>kmod-tcp-bbr</code> 安装就可以。</p></div></a><div class="post-li-tag"><a href="/tags/OpenWrt/">OpenWrt</a> <a href="/tags/BBR/">BBR</a> <a href="/tags/路由/">路由</a> <a href="/tags/开启/">开启</a> </div></div></div><div class="c"></div></li></ul>
+<h5>相关推荐</h5><ul class="related-ul2"><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-28-4278.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/md5.jpg');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-28-4278.html" class="post-card-content-link"><div class="post-title">用python 正确计算大文件md5 值</div><div class="post-des post-excerpt gray7 pb-2"><p>python 计算文件的md5值很方便，但如果只是简单的把文件都入到内存中，大文件会导致问题，一般采用切片的方式分段计算，下面的几个函数可以很好的解决这个问题。</p></div></a><div class="post-li-tag"><a href="/tags/python/">python</a> <a href="/tags/md5/">md5</a> </div></div></div><div class="c"></div></li><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-24-54485.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/python-formdata-post.jpg');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-24-54485.html" class="post-card-content-link"><div class="post-title">python form-data post上传数据简便方法</div><div class="post-des post-excerpt gray7 pb-2"><p>有时要用到 form-data 这种形式post 上传文件到服务器，下面介绍使用python 实现的简便方法。</p></div></a><div class="post-li-tag"><a href="/tags/python/">python</a> <a href="/tags/form/">form</a> <a href="/tags/data/">data</a> <a href="/tags/post/">post</a> <a href="/tags/上传/">上传</a> </div></div></div><div class="c"></div></li></ul>
 
 
 
@@ -149,7 +188,7 @@
 <div class="top-rate box side-box">
   <h2>标签</h2>
     <div class="side-tag-lst">
-      <a href="/tags/%E5%9B%BD%E5%86%85/" class="s-tag" title="国内" style="font-size: 10px; color: #666">国内</a> <a href="/tags/OpenSSL/" class="s-tag" title="OpenSSL" style="font-size: 10px; color: #666">OpenSSL</a> <a href="/tags/python/" class="s-tag" title="python" style="font-size: 20px; color: #09f">python</a> <a href="/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/" class="s-tag" title="验证码" style="font-size: 10px; color: #666">验证码</a> <a href="/tags/pip3/" class="s-tag" title="pip3" style="font-size: 10px; color: #666">pip3</a> <a href="/tags/Linux/" class="s-tag" title="Linux" style="font-size: 10px; color: #666">Linux</a> <a href="/tags/Vim/" class="s-tag" title="Vim" style="font-size: 10px; color: #666">Vim</a> <a href="/tags/Mac/" class="s-tag" title="Mac" style="font-size: 10px; color: #666">Mac</a> <a href="/tags/md5/" class="s-tag" title="md5" style="font-size: 10px; color: #666">md5</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" class="s-tag" title="路由" style="font-size: 10px; color: #666">路由</a> <a href="/tags/%E5%86%99%E4%BD%9C/" class="s-tag" title="写作" style="font-size: 10px; color: #666">写作</a> <a href="/tags/BBR/" class="s-tag" title="BBR" style="font-size: 15px; color: #3380b3">BBR</a> <a href="/tags/nodeJS/" class="s-tag" title="nodeJS" style="font-size: 10px; color: #666">nodeJS</a> <a href="/tags/%E4%B8%8A%E4%BC%A0/" class="s-tag" title="上传" style="font-size: 10px; color: #666">上传</a> <a href="/tags/VPS/" class="s-tag" title="VPS" style="font-size: 15px; color: #3380b3">VPS</a> <a href="/tags/%E8%AF%81%E4%B9%A6/" class="s-tag" title="证书" style="font-size: 10px; color: #666">证书</a> <a href="/tags/hexo/" class="s-tag" title="hexo" style="font-size: 10px; color: #666">hexo</a> <a href="/tags/%E5%BC%80%E5%90%AF/" class="s-tag" title="开启" style="font-size: 15px; color: #3380b3">开启</a> <a href="/tags/install/" class="s-tag" title="install" style="font-size: 10px; color: #666">install</a> <a href="/tags/PIL/" class="s-tag" title="PIL" style="font-size: 10px; color: #666">PIL</a> <a href="/tags/%E7%99%BB%E5%BD%95/" class="s-tag" title="登录" style="font-size: 10px; color: #666">登录</a> <a href="/tags/%E5%AF%86%E9%92%A5/" class="s-tag" title="密钥" style="font-size: 10px; color: #666">密钥</a> <a href="/tags/Markdown/" class="s-tag" title="Markdown" style="font-size: 10px; color: #666">Markdown</a> <a href="/tags/SSH/" class="s-tag" title="SSH" style="font-size: 10px; color: #666">SSH</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" class="s-tag" title="访问速度" style="font-size: 10px; color: #666">访问速度</a> <a href="/tags/data/" class="s-tag" title="data" style="font-size: 10px; color: #666">data</a> <a href="/tags/pip2/" class="s-tag" title="pip2" style="font-size: 10px; color: #666">pip2</a> <a href="/tags/OpenWrt/" class="s-tag" title="OpenWrt" style="font-size: 15px; color: #3380b3">OpenWrt</a> <a href="/tags/post/" class="s-tag" title="post" style="font-size: 10px; color: #666">post</a> <a href="/tags/form/" class="s-tag" title="form" style="font-size: 10px; color: #666">form</a> <a href="/tags/%E5%8A%A0%E9%80%9F/" class="s-tag" title="加速" style="font-size: 10px; color: #666">加速</a>
+      <a href="/tags/pip3/" class="s-tag" title="pip3" style="font-size: 10px; color: #666">pip3</a> <a href="/tags/BBR/" class="s-tag" title="BBR" style="font-size: 15px; color: #3380b3">BBR</a> <a href="/tags/PIL/" class="s-tag" title="PIL" style="font-size: 10px; color: #666">PIL</a> <a href="/tags/%E5%AF%86%E9%92%A5/" class="s-tag" title="密钥" style="font-size: 10px; color: #666">密钥</a> <a href="/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/" class="s-tag" title="验证码" style="font-size: 10px; color: #666">验证码</a> <a href="/tags/SSH/" class="s-tag" title="SSH" style="font-size: 10px; color: #666">SSH</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" class="s-tag" title="访问速度" style="font-size: 10px; color: #666">访问速度</a> <a href="/tags/%E4%B8%8A%E4%BC%A0/" class="s-tag" title="上传" style="font-size: 10px; color: #666">上传</a> <a href="/tags/%E5%9B%BD%E5%86%85/" class="s-tag" title="国内" style="font-size: 10px; color: #666">国内</a> <a href="/tags/OpenWrt/" class="s-tag" title="OpenWrt" style="font-size: 15px; color: #3380b3">OpenWrt</a> <a href="/tags/Linux/" class="s-tag" title="Linux" style="font-size: 10px; color: #666">Linux</a> <a href="/tags/Mac/" class="s-tag" title="Mac" style="font-size: 10px; color: #666">Mac</a> <a href="/tags/data/" class="s-tag" title="data" style="font-size: 10px; color: #666">data</a> <a href="/tags/form/" class="s-tag" title="form" style="font-size: 10px; color: #666">form</a> <a href="/tags/python/" class="s-tag" title="python" style="font-size: 20px; color: #09f">python</a> <a href="/tags/%E5%86%99%E4%BD%9C/" class="s-tag" title="写作" style="font-size: 10px; color: #666">写作</a> <a href="/tags/VPS/" class="s-tag" title="VPS" style="font-size: 15px; color: #3380b3">VPS</a> <a href="/tags/%E8%AF%81%E4%B9%A6/" class="s-tag" title="证书" style="font-size: 10px; color: #666">证书</a> <a href="/tags/install/" class="s-tag" title="install" style="font-size: 10px; color: #666">install</a> <a href="/tags/md5/" class="s-tag" title="md5" style="font-size: 10px; color: #666">md5</a> <a href="/tags/post/" class="s-tag" title="post" style="font-size: 10px; color: #666">post</a> <a href="/tags/OpenSSL/" class="s-tag" title="OpenSSL" style="font-size: 10px; color: #666">OpenSSL</a> <a href="/tags/%E5%BC%80%E5%90%AF/" class="s-tag" title="开启" style="font-size: 15px; color: #3380b3">开启</a> <a href="/tags/hexo/" class="s-tag" title="hexo" style="font-size: 10px; color: #666">hexo</a> <a href="/tags/%E5%8A%A0%E9%80%9F/" class="s-tag" title="加速" style="font-size: 10px; color: #666">加速</a> <a href="/tags/Markdown/" class="s-tag" title="Markdown" style="font-size: 10px; color: #666">Markdown</a> <a href="/tags/%E7%99%BB%E5%BD%95/" class="s-tag" title="登录" style="font-size: 10px; color: #666">登录</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" class="s-tag" title="路由" style="font-size: 10px; color: #666">路由</a> <a href="/tags/nodeJS/" class="s-tag" title="nodeJS" style="font-size: 10px; color: #666">nodeJS</a> <a href="/tags/pip2/" class="s-tag" title="pip2" style="font-size: 10px; color: #666">pip2</a> <a href="/tags/Vim/" class="s-tag" title="Vim" style="font-size: 10px; color: #666">Vim</a>
     </div>
 </div>
 

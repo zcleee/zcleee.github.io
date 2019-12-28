@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.leezc.cn/"/>
-  <updated>2019-12-28T07:17:50.360Z</updated>
+  <updated>2019-12-28T15:57:55.000Z</updated>
   <id>https://blog.leezc.cn/</id>
   
   <author>
@@ -17,11 +17,59 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>python PIL 生成图片验证码</title>
+    <link href="https://blog.leezc.cn/posts/2019-12-28-63494.html"/>
+    <id>https://blog.leezc.cn/posts/2019-12-28-63494.html</id>
+    <published>2019-12-28T15:57:55.000Z</published>
+    <updated>2019-12-28T15:57:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>下面是一个用python PIL 生成验证码的函数。</p><a id="more"></a><p>过程是：创建一张有底色的图片、在背景上添加杂色、写上特定文字、保存图片</p><pre><code># -*- coding: utf-8 -*-import randomimport Imageimport ImageFontimport ImageDrawimport ImageFilterdef gen_captcha(text, fnt, fnt_sz, file_name, fmt=&#39;JPEG&#39;):    # 随机生成背景色    fgcolor = random.randint(0,0xffff00)    bgcolor = fgcolor ^ 0xffffff    # 生成文字    font = ImageFont.truetype(fnt,fnt_sz)    dim = font.getsize(text)    im = Image.new(&#39;RGB&#39;, (dim[0]+5,dim[1]+5), bgcolor)    d = ImageDraw.Draw(im)    x, y = im.size    r = random.randint    # 给背景添加杂色    for num in range(100):        d.rectangle((r(0,x), r(0,y), r(0,x), r(0,y)), fill=r(0, 0xffffff))    # 添加文字    d.text((3,3), text, font=font, fill=fgcolor)    im = im.filter(ImageFilter.EDGE_ENHANCE_MORE)    im.save(file_name, format=fmt)def gen_random_word(wordLen=6):    allowedChars = &quot;abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789&quot;    word = &quot;&quot;    for i in range(0, wordLen):        word = word + allowedChars[random.randint(0,0xffffff) % len(allowedChars)]    return wordif __name__ == &#39;__main__&#39;:    word = gen_random_word()    print word    gen_captcha(word.strip(), &#39;porkys.ttf&#39;, 65, &quot;test.jpg&quot;)</code></pre><h2 id="进阶使用"><a href="#进阶使用" class="headerlink" title="进阶使用"></a>进阶使用</h2><p>一般情况不会要求填写验证码，避免影响用户体验。在特定情况下，如当用户登录密码出错N 次后，当用户频繁发贴时。</p><p>可对验证码作更复杂的变换，当用户输入验证码出错次数为N 时，增加其难度，如增加字符集、变化字体等。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;下面是一个用python PIL 生成验证码的函数。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="python" scheme="https://blog.leezc.cn/tags/python/"/>
+    
+      <category term="PIL" scheme="https://blog.leezc.cn/tags/PIL/"/>
+    
+      <category term="验证码" scheme="https://blog.leezc.cn/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用python 正确计算大文件md5 值</title>
+    <link href="https://blog.leezc.cn/posts/2019-12-28-4278.html"/>
+    <id>https://blog.leezc.cn/posts/2019-12-28-4278.html</id>
+    <published>2019-12-28T15:52:25.000Z</published>
+    <updated>2019-12-28T15:52:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>python 计算文件的md5值很方便，但如果只是简单的把文件都入到内存中，大文件会导致问题，一般采用切片的方式分段计算，下面的几个函数可以很好的解决这个问题。</p><a id="more"></a><h2 id="使用-hashlib"><a href="#使用-hashlib" class="headerlink" title="使用 hashlib"></a>使用 hashlib</h2><pre><code>import hashlibdef md5_for_file(f, block_size=2**20):    md5 = hashlib.md5()    while True:        data = f.read(block_size)        if not data:            break        md5.update(data)    return md5.digest()def md5sum(filename, blocksize=65536):    hash = hashlib.md5()    with open(filename, &quot;r+b&quot;) as f:        for block in iter(lambda: f.read(blocksize), &quot;&quot;):            hash.update(block)    return hash.hexdigest()</code></pre><h2 id="使用-Crypto-Hash"><a href="#使用-Crypto-Hash" class="headerlink" title="使用 Crypto.Hash"></a>使用 Crypto.Hash</h2><pre><code>import osfrom Crypto.Hash import MD5def get_file_checksum(filename):    h = MD5.new()    chunk_size = 8192    with open(filename, &#39;rb&#39;) as f:        while True:            chunk = f.read(chunk_size)            if len(chunk) == 0:                break            h.update(chunk)    return h.hexdigest()</code></pre><p>上面三个函数都能正确计算大文件md5 值</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;python 计算文件的md5值很方便，但如果只是简单的把文件都入到内存中，大文件会导致问题，一般采用切片的方式分段计算，下面的几个函数可以很好的解决这个问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="python" scheme="https://blog.leezc.cn/tags/python/"/>
+    
+      <category term="md5" scheme="https://blog.leezc.cn/tags/md5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="https://blog.leezc.cn/posts/2019-12-28-16107.html"/>
     <id>https://blog.leezc.cn/posts/2019-12-28-16107.html</id>
-    <published>2019-12-28T07:17:50.360Z</published>
-    <updated>2019-12-28T07:17:50.360Z</updated>
+    <published>2019-12-28T08:07:35.947Z</published>
+    <updated>2019-12-28T08:07:35.947Z</updated>
     
     <content type="html"><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p><a id="more"></a><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
     
