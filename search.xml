@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>使用国内pip 源</title>
+    <url>/posts/2019-12-28-9867.html</url>
+    <content><![CDATA[<p>有些服务器对外网络很坑，幸好国内有好多优秀的源镜像</p>
+<a id="more"></a>
+<p>优秀pip源推荐</p>
+<pre><code>http://pypi.douban.com/  豆瓣
+http://pypi.hustunique.com/  华中理工大学
+http://pypi.sdutlinux.org/  山东理工大学
+http://pypi.mirrors.ustc.edu.cn/  中国科学技术大学</code></pre><pre><code>pip install web.py -i https://pypi.douban.com/simple</code></pre><p>~/.pip/pip.conf</p>
+<pre><code>[global]
+index-url = https://pypi.douban.com/simple</code></pre><h2 id="清华大学开源镜像"><a href="#清华大学开源镜像" class="headerlink" title="清华大学开源镜像"></a>清华大学开源镜像</h2><p><a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/</a></p>
+<p>临时使用</p>
+<pre><code>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package</code></pre><p>注意，<code>simple</code> 不能少, 是 <code>https</code> 而不是 <code>http</code></p>
+<p>设为默认 升级 pip 到最新的版本 (&gt;=10.0.0) 后进行配置：</p>
+<pre><code>pip install pip -U
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</code></pre>]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>pip</tag>
+        <tag>国内源</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python 用base64 对图片文件的编码和解码处理</title>
     <url>/posts/2019-12-28-35102.html</url>
     <content><![CDATA[<p>用base64 对图片文件的编码和解码处理</p>
@@ -169,6 +192,27 @@ if __name__ == &#39;__main__&#39;:
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/posts/2019-12-28-16107.html</url>
+    <content><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p>
+<a id="more"></a>
+<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>install</tag>
+        <tag>nodeJS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>用python 正确计算大文件md5 值</title>
     <url>/posts/2019-12-28-4278.html</url>
     <content><![CDATA[<p>python 计算文件的md5值很方便，但如果只是简单的把文件都入到内存中，大文件会导致问题，一般采用切片的方式分段计算，下面的几个函数可以很好的解决这个问题。</p>
@@ -206,27 +250,6 @@ def get_file_checksum(filename):
       <tags>
         <tag>python</tag>
         <tag>md5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/posts/2019-12-28-16107.html</url>
-    <content><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p>
-<a id="more"></a>
-<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>install</tag>
-        <tag>nodeJS</tag>
       </tags>
   </entry>
   <entry>
