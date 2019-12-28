@@ -1,11 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python 根据字符串随机生成颜色</title>
+    <url>/posts/2019-12-28-38278.html</url>
+    <content><![CDATA[<p>遇到这么一个需求：根据用户名或用户id，随机生成一个颜色。其实就是用python 根据字符串随机生成颜色。</p>
+<a id="more"></a>
+<h2 id="python-实现"><a href="#python-实现" class="headerlink" title="python 实现"></a>python 实现</h2><p>下面是python 实现。</p>
+<pre><code>import hashlib
+
+def hsv2rgb(h, s, v):
+    h += 0.618033988749895
+    h %= 1
+    h_i = int(h*6)
+    f = h*6 - h_i
+    p = v * (1 - s)
+    q = v * (1 - f*s)
+    t = v * (1 - (1 - f) * s)
+
+    if h_i == 0:
+        r, g, b = v, t, p
+    elif h_i == 1:
+        r, g, b = q, v, p
+    elif h_i == 2:
+        r, g, b = p, v, t
+    elif h_i == 3:
+        r, g, b = p, q, v
+    elif h_i == 4:
+        r, g, b = t, p, v
+    elif h_i == 5:
+        r, g, b = v, p, q
+    else:
+        r = g = b = 0
+    return [int(r*256), int(g*256), int(b*256)]
+
+def str2rgb(obj):
+    digest = hashlib.sha384(str(obj).encode(&#39;utf-8&#39;)).hexdigest()
+
+    sub_size = int(len(digest) / 3)
+    max_value = float(int(&quot;f&quot; * sub_size, 16))
+    digests = [digest[i * sub_size: (i + 1) * sub_size] for i in range(3)]
+
+    rgb = (((int(d, 16) / max_value)+0.618033988749895) % 1 for d in digests)
+
+    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % int(c*255 + 0.5 - 0.0000005) for c in rgb])
+
+def str2rgb2(obj):
+    digest = hashlib.sha384(str(obj).encode(&#39;utf-8&#39;)).hexdigest()
+
+    obj_value = int(digest, 16)
+    max_value = float(int(&quot;f&quot; * len(digest), 16))
+
+    rgb = hsv2rgb(obj_value/max_value, 0.5, 0.95)
+
+    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % c for c in rgb])</code></pre><h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>上面有两种实现，其效果如下：<br><img src="/images/posts/str2rgb.png" alt="str2rgb.png"><br><img src="/images/posts/str2rgb2.png" alt="str2rgb2.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>第一种颜色较深，只要传入字符串不同，其颜色就不同。</li>
+<li>第二种颜色较淡，过渡自然，但第二种只有732 种颜色。</li>
+</ul>
+<p>如果为了不同的颜色就使用第一种，如果允许相同的颜色，又要求柔和、自然接近，就考虑第二种。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>字符串</tag>
+        <tag>随机</tag>
+        <tag>颜色</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python获取当前运行文件路径的方法</title>
     <url>/posts/2019-12-28-18016.html</url>
     <content><![CDATA[<p>下面是python获取当前运行文件路径的方法</p>
 <a id="more"></a>
-<h2 id="通过-file-获取"><a href="#通过-file-获取" class="headerlink" title="通过 file 获取"></a>通过 <strong>file</strong> 获取</h2><pre><code>os.path.dirname(os.path.realpath(__file__))</code></pre><h2 id="通过-getcwd-获取当前路径"><a href="#通过-getcwd-获取当前路径" class="headerlink" title="通过 getcwd 获取当前路径"></a>通过 getcwd 获取当前路径</h2><pre><code>os.getcwd()</code></pre><p>更详细的 path 文档<a href="https://docs.python.org/2/library/os.path.html" target="_blank" rel="noopener">https://docs.python.org/2/library/os.path.html</a></p>
+<h2 id="通过-file-获取"><a href="#通过-file-获取" class="headerlink" title="通过 file 获取"></a>通过 <strong>file</strong> 获取</h2><pre><code>os.path.dirname(os.path.realpath(__file__))</code></pre><h2 id="通过-getcwd-获取当前路径"><a href="#通过-getcwd-获取当前路径" class="headerlink" title="通过 getcwd 获取当前路径"></a>通过 getcwd 获取当前路径</h2><pre><code>os.getcwd()</code></pre><p>更详细的 path 文档 <a href="https://docs.python.org/2/library/os.path.html" target="_blank" rel="noopener">https://docs.python.org/2/library/os.path.html</a></p>
 <h2 id="其它相关路径"><a href="#其它相关路径" class="headerlink" title="其它相关路径"></a>其它相关路径</h2><pre><code>#当前文件路径
 print(os.path.realpath(__file__))
 #当前文件所在的目录，即父路径
