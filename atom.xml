@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.leezc.cn/"/>
-  <updated>2019-12-28T19:02:03.000Z</updated>
+  <updated>2019-12-28T22:41:23.000Z</updated>
   <id>https://blog.leezc.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python 用base64 对图片文件的编码和解码处理</title>
+    <link href="https://blog.leezc.cn/posts/2019-12-28-35102.html"/>
+    <id>https://blog.leezc.cn/posts/2019-12-28-35102.html</id>
+    <published>2019-12-28T22:41:23.000Z</published>
+    <updated>2019-12-28T22:41:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>用base64 对图片文件的编码和解码处理</p><a id="more"></a><pre><code>import base64def convert(image):    f = open(image)    img_raw_data = f.read()    f.close()    img_b64_string = base64.b64encode(img_raw_data)    convert_img_raw_data = base64.b64decode(img_b64_string)    t = open(&quot;example.png&quot;, &quot;w+&quot;)    t.write(convert_img_raw_data)    t.close()if __name__ == &quot;__main__&quot;:    convert(&quot;test.png&quot;)</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用base64 对图片文件的编码和解码处理&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="python" scheme="https://blog.leezc.cn/tags/python/"/>
+    
+      <category term="base64" scheme="https://blog.leezc.cn/tags/base64/"/>
+    
+  </entry>
   
   <entry>
     <title>python 根据字符串随机生成颜色</title>
@@ -118,8 +141,8 @@
     <title>Hello World</title>
     <link href="https://blog.leezc.cn/posts/2019-12-28-16107.html"/>
     <id>https://blog.leezc.cn/posts/2019-12-28-16107.html</id>
-    <published>2019-12-28T11:18:06.767Z</published>
-    <updated>2019-12-28T11:18:06.767Z</updated>
+    <published>2019-12-28T14:47:45.484Z</published>
+    <updated>2019-12-28T14:47:45.484Z</updated>
     
     <content type="html"><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p><a id="more"></a><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
     

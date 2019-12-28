@@ -63,50 +63,30 @@
         <div class="main-left-body">
           
 <div class="box main-body">
-    <h1>Openwrt 路由上开启BBR</h1>
+    <h1>python 用base64 对图片文件的编码和解码处理</h1>
     <div class="post-info gray5 f6">
-        &#x1F559; 2019-12-24 14:24:02
+        &#x1F559; 2019-12-28 22:41:23
         
     </div>
     <div class="markdown-body" id="articleContent">
-      <p>BBR 是一种协议算法，在 Openwrt 路由上启用 BBR 还是有一定作用的。 Openwrt 18.* 后都自带模块 <code>kmod-tcp-bbr</code> 安装就可以。</p>
+      <p>用base64 对图片文件的编码和解码处理</p>
 <a id="more"></a>
-<p><img src="/images/posts/Openwrt-BBR.jpg" alt="Openwrt-BBR"><br>看内核版本</p>
-<pre><code>root@OpenWrt:~# uname -r
-4.9.184</code></pre><p>安装 <code>kmod-tcp-bbr</code></p>
-<pre><code>opkg update
-opkg install kmod-tcp-bbr</code></pre><p>会安装相关的 ipk</p>
-<pre><code>Configuring kmod-sched-core.
-Configuring kmod-sched.
-Configuring kmod-tcp-bbr.</code></pre><p>查看相关情况</p>
-<pre><code>root@OpenWrt:~# sysctl net.ipv4.tcp_congestion_control
-net.ipv4.tcp_congestion_control = cubic
-root@OpenWrt:~# sysctl net.ipv4.tcp_available_congestion_control
-net.ipv4.tcp_available_congestion_control = cubic reno bbr
-root@OpenWrt:~# sysctl net.core.default_qdisc
-net.core.default_qdisc = fq_codel
-root@OpenWrt:~# lsmod | grep bbr
-tcp_bbr                 4832  0
-root@OpenWrt:~# cat /etc/sysctl.conf
-# Defaults are configured in /etc/sysctl.d/* and can be customized in this file
-root@OpenWrt:~# ls -l /etc/sysctl.d/
--rw-r--r--    1 root     root           675 Jun 27 12:18 10-default.conf
--rw-r--r--    1 root     root           379 Jun 27 12:18 11-nf-conntrack.conf
--rw-r--r--    1 root     root           184 Jun 27 12:18 12-tcp-bbr.conf
-root@OpenWrt:~# cat /etc/sysctl.d/12-tcp-bbr.conf
-# Do not edit, changes to this file will be lost on upgrades
-# /etc/sysctl.conf can be used to customize sysctl settings
+<pre><code>import base64
 
-net.ipv4.tcp_congestion_control=bbr
-net.core.default_qdisc=fq
-root@OpenWrt:~# sysctl -p
-root@OpenWrt:~# lsmod | grep bbr
-tcp_bbr                 4832  0</code></pre><p>还没生效，重启路由后再看看</p>
-<pre><code>root@OpenWrt:~# lsmod | grep bbr
-tcp_bbr                 4832 21
-root@OpenWrt:~# sysctl net.ipv4.tcp_congestion_control
-net.ipv4.tcp_congestion_control = bbr</code></pre><p>BBR 加速生效了！</p>
+def convert(image):
+    f = open(image)
+    img_raw_data = f.read()
+    f.close()
 
+    img_b64_string = base64.b64encode(img_raw_data)
+    convert_img_raw_data = base64.b64decode(img_b64_string)
+
+    t = open(&quot;example.png&quot;, &quot;w+&quot;)
+    t.write(convert_img_raw_data)
+    t.close()
+
+if __name__ == &quot;__main__&quot;:
+    convert(&quot;test.png&quot;)</code></pre>
 
     </div>
 
@@ -114,36 +94,26 @@ net.ipv4.tcp_congestion_control = bbr</code></pre><p>BBR 加速生效了！</p>
          本文标签： 
          
          
-         <a href="/tags/OpenWrt/" title="OpenWrt">OpenWrt</a> 
+         <a href="/tags/python/" title="python">python</a> 
          
          
          
-         <a href="/tags/BBR/" title="BBR">BBR</a> 
-         
-         
-         
-         <a href="/tags/%E8%B7%AF%E7%94%B1/" title="路由">路由</a> 
-         
-         
-         
-         <a href="/tags/%E5%BC%80%E5%90%AF/" title="开启">开启</a> 
+         <a href="/tags/base64/" title="base64">base64</a> 
          
          
     </div>
 
     <ul class="nearby-bar">
           
-            <li>较新文章： <a href="/posts/2019-12-24-27787.html" title="开启BBR 加速小VPS访问速度">开启BBR 加速小VPS访问速度</a></li>
           
-          
-            <li>较旧文章： <a href="/posts/2019-12-21-21047.html" title="Vim 与中文输入法">Vim 与中文输入法</a></li>
+            <li>较旧文章： <a href="/posts/2019-12-28-38278.html" title="python 根据字符串随机生成颜色">python 根据字符串随机生成颜色</a></li>
           
     </ul>
 
 </div>
 
 <div class="box copy-info">
-    <div>本文网址: https://blog.leezc.cn/posts/2019-12-24-46437.html（转载注明出处）</div>
+    <div>本文网址: https://blog.leezc.cn/posts/2019-12-28-35102.html（转载注明出处）</div>
     <div>如果你有任何建议或疑问可以在下面 <a href="#vcomments" rel="nofollow">留言</a></div>
 </div>
 
@@ -156,7 +126,7 @@ net.ipv4.tcp_congestion_control = bbr</code></pre><p>BBR 加速生效了！</p>
 
 
 
-<h5>相关推荐</h5><ul class="related-ul2"><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-24-27787.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/open-BBR.gif');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-24-27787.html" class="post-card-content-link"><div class="post-title">开启BBR 加速小VPS访问速度</div><div class="post-des post-excerpt gray7 pb-2"><p>TCP BBR 是 Google 开发的新的拥塞控制算法，据说是用在 YouTube 上，后来开源并且已经集成到 Linux 4.9-rc8 之后版本的内核中。它可以极大提高网络速度，大大降低延迟。</p></div></a><div class="post-li-tag"><a href="/tags/BBR/">BBR</a> <a href="/tags/开启/">开启</a> <a href="/tags/访问速度/">访问速度</a> <a href="/tags/VPS/">VPS</a> <a href="/tags/加速/">加速</a> </div></div></div><div class="c"></div></li><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-24-11985.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/OpenWrt.png');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-24-11985.html" class="post-card-content-link"><div class="post-title">OpenWrt 国内源</div><div class="post-des post-excerpt gray7 pb-2"><p>国内可用 OpenWrt 镜像</p></div></a><div class="post-li-tag"><a href="/tags/OpenWrt/">OpenWrt</a> <a href="/tags/国内/">国内</a> </div></div></div><div class="c"></div></li></ul>
+<h5>相关推荐</h5><ul class="related-ul2"><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-28-38278.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/str2rgb2.png');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-28-38278.html" class="post-card-content-link"><div class="post-title">python 根据字符串随机生成颜色</div><div class="post-des post-excerpt gray7 pb-2"><p>遇到这么一个需求：根据用户名或用户id，随机生成一个颜色。其实就是用python 根据字符串随机生成颜色。</p></div></a><div class="post-li-tag"><a href="/tags/python/">python</a> <a href="/tags/字符串/">字符串</a> <a href="/tags/随机/">随机</a> <a href="/tags/颜色/">颜色</a> </div></div></div><div class="c"></div></li><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-28-18016.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/python-get-path.jpg');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-28-18016.html" class="post-card-content-link"><div class="post-title">python获取当前运行文件路径的方法</div><div class="post-des post-excerpt gray7 pb-2"><p>下面是python获取当前运行文件路径的方法</p></div></a><div class="post-li-tag"><a href="/tags/python/">python</a> <a href="/tags/文件路径/">文件路径</a> </div></div></div><div class="c"></div></li><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-28-63494.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/python-PIL.jpg');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-28-63494.html" class="post-card-content-link"><div class="post-title">python PIL 生成图片验证码</div><div class="post-des post-excerpt gray7 pb-2"><p>下面是一个用python PIL 生成验证码的函数。</p></div></a><div class="post-li-tag"><a href="/tags/python/">python</a> <a href="/tags/PIL/">PIL</a> <a href="/tags/验证码/">验证码</a> </div></div></div><div class="c"></div></li><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-28-4278.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/md5.jpg');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-28-4278.html" class="post-card-content-link"><div class="post-title">用python 正确计算大文件md5 值</div><div class="post-des post-excerpt gray7 pb-2"><p>python 计算文件的md5值很方便，但如果只是简单的把文件都入到内存中，大文件会导致问题，一般采用切片的方式分段计算，下面的几个函数可以很好的解决这个问题。</p></div></a><div class="post-li-tag"><a href="/tags/python/">python</a> <a href="/tags/md5/">md5</a> </div></div></div><div class="c"></div></li><li class="box pure-g"><div class="fl pure-u-1 pure-u-md-1-3"><a href="/posts/2019-12-24-54485.html" class="post-card-image-link"><div class="post-li-left post-card-image" style="background-image: url('/images/posts/python-formdata-post.jpg');"></div></a></div><div class="fl pure-u-1 pure-u-md-2-3"><div class="post-li-right"><a href="/posts/2019-12-24-54485.html" class="post-card-content-link"><div class="post-title">python form-data post上传数据简便方法</div><div class="post-des post-excerpt gray7 pb-2"><p>有时要用到 form-data 这种形式post 上传文件到服务器，下面介绍使用python 实现的简便方法。</p></div></a><div class="post-li-tag"><a href="/tags/python/">python</a> <a href="/tags/form/">form</a> <a href="/tags/data/">data</a> <a href="/tags/post/">post</a> <a href="/tags/上传/">上传</a> </div></div></div><div class="c"></div></li></ul>
 
 
 
@@ -182,7 +152,7 @@ net.ipv4.tcp_congestion_control = bbr</code></pre><p>BBR 加速生效了！</p>
 <div class="top-rate box side-box">
   <h2>标签</h2>
     <div class="side-tag-lst">
-      <a href="/tags/OpenWrt/" class="s-tag" title="OpenWrt" style="font-size: 17.5px; color: #3380b3">OpenWrt</a> <a href="/tags/PIL/" class="s-tag" title="PIL" style="font-size: 10px; color: #666">PIL</a> <a href="/tags/Linux/" class="s-tag" title="Linux" style="font-size: 10px; color: #666">Linux</a> <a href="/tags/%E5%BC%80%E5%90%AF/" class="s-tag" title="开启" style="font-size: 17.5px; color: #3380b3">开启</a> <a href="/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/" class="s-tag" title="验证码" style="font-size: 10px; color: #666">验证码</a> <a href="/tags/%E4%B8%8A%E4%BC%A0/" class="s-tag" title="上传" style="font-size: 10px; color: #666">上传</a> <a href="/tags/%E5%9B%BD%E5%86%85/" class="s-tag" title="国内" style="font-size: 10px; color: #666">国内</a> <a href="/tags/python/" class="s-tag" title="python" style="font-size: 25px; color: #09f">python</a> <a href="/tags/BBR/" class="s-tag" title="BBR" style="font-size: 17.5px; color: #3380b3">BBR</a> <a href="/tags/%E8%AF%81%E4%B9%A6/" class="s-tag" title="证书" style="font-size: 10px; color: #666">证书</a> <a href="/tags/post/" class="s-tag" title="post" style="font-size: 10px; color: #666">post</a> <a href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" class="s-tag" title="文件路径" style="font-size: 10px; color: #666">文件路径</a> <a href="/tags/base64/" class="s-tag" title="base64" style="font-size: 10px; color: #666">base64</a> <a href="/tags/form/" class="s-tag" title="form" style="font-size: 10px; color: #666">form</a> <a href="/tags/nodeJS/" class="s-tag" title="nodeJS" style="font-size: 10px; color: #666">nodeJS</a> <a href="/tags/pip3/" class="s-tag" title="pip3" style="font-size: 10px; color: #666">pip3</a> <a href="/tags/pip2/" class="s-tag" title="pip2" style="font-size: 10px; color: #666">pip2</a> <a href="/tags/hexo/" class="s-tag" title="hexo" style="font-size: 10px; color: #666">hexo</a> <a href="/tags/md5/" class="s-tag" title="md5" style="font-size: 10px; color: #666">md5</a> <a href="/tags/data/" class="s-tag" title="data" style="font-size: 10px; color: #666">data</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="s-tag" title="字符串" style="font-size: 10px; color: #666">字符串</a> <a href="/tags/Mac/" class="s-tag" title="Mac" style="font-size: 10px; color: #666">Mac</a> <a href="/tags/%E5%86%99%E4%BD%9C/" class="s-tag" title="写作" style="font-size: 10px; color: #666">写作</a> <a href="/tags/install/" class="s-tag" title="install" style="font-size: 10px; color: #666">install</a> <a href="/tags/SSH/" class="s-tag" title="SSH" style="font-size: 10px; color: #666">SSH</a> <a href="/tags/%E9%A2%9C%E8%89%B2/" class="s-tag" title="颜色" style="font-size: 10px; color: #666">颜色</a> <a href="/tags/Vim/" class="s-tag" title="Vim" style="font-size: 10px; color: #666">Vim</a> <a href="/tags/VPS/" class="s-tag" title="VPS" style="font-size: 17.5px; color: #3380b3">VPS</a> <a href="/tags/%E5%8A%A0%E9%80%9F/" class="s-tag" title="加速" style="font-size: 10px; color: #666">加速</a> <a href="/tags/%E5%AF%86%E9%92%A5/" class="s-tag" title="密钥" style="font-size: 10px; color: #666">密钥</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" class="s-tag" title="访问速度" style="font-size: 10px; color: #666">访问速度</a> <a href="/tags/Markdown/" class="s-tag" title="Markdown" style="font-size: 10px; color: #666">Markdown</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" class="s-tag" title="路由" style="font-size: 10px; color: #666">路由</a> <a href="/tags/OpenSSL/" class="s-tag" title="OpenSSL" style="font-size: 10px; color: #666">OpenSSL</a> <a href="/tags/%E7%99%BB%E5%BD%95/" class="s-tag" title="登录" style="font-size: 10px; color: #666">登录</a> <a href="/tags/%E9%9A%8F%E6%9C%BA/" class="s-tag" title="随机" style="font-size: 10px; color: #666">随机</a>
+      <a href="/tags/Mac/" class="s-tag" title="Mac" style="font-size: 10px; color: #666">Mac</a> <a href="/tags/pip3/" class="s-tag" title="pip3" style="font-size: 10px; color: #666">pip3</a> <a href="/tags/%E4%B8%8A%E4%BC%A0/" class="s-tag" title="上传" style="font-size: 10px; color: #666">上传</a> <a href="/tags/SSH/" class="s-tag" title="SSH" style="font-size: 10px; color: #666">SSH</a> <a href="/tags/OpenWrt/" class="s-tag" title="OpenWrt" style="font-size: 17.5px; color: #3380b3">OpenWrt</a> <a href="/tags/%E9%A2%9C%E8%89%B2/" class="s-tag" title="颜色" style="font-size: 10px; color: #666">颜色</a> <a href="/tags/base64/" class="s-tag" title="base64" style="font-size: 10px; color: #666">base64</a> <a href="/tags/Linux/" class="s-tag" title="Linux" style="font-size: 10px; color: #666">Linux</a> <a href="/tags/Vim/" class="s-tag" title="Vim" style="font-size: 10px; color: #666">Vim</a> <a href="/tags/md5/" class="s-tag" title="md5" style="font-size: 10px; color: #666">md5</a> <a href="/tags/Markdown/" class="s-tag" title="Markdown" style="font-size: 10px; color: #666">Markdown</a> <a href="/tags/%E5%BC%80%E5%90%AF/" class="s-tag" title="开启" style="font-size: 17.5px; color: #3380b3">开启</a> <a href="/tags/form/" class="s-tag" title="form" style="font-size: 10px; color: #666">form</a> <a href="/tags/python/" class="s-tag" title="python" style="font-size: 25px; color: #09f">python</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="s-tag" title="字符串" style="font-size: 10px; color: #666">字符串</a> <a href="/tags/%E5%86%99%E4%BD%9C/" class="s-tag" title="写作" style="font-size: 10px; color: #666">写作</a> <a href="/tags/post/" class="s-tag" title="post" style="font-size: 10px; color: #666">post</a> <a href="/tags/%E8%AF%81%E4%B9%A6/" class="s-tag" title="证书" style="font-size: 10px; color: #666">证书</a> <a href="/tags/VPS/" class="s-tag" title="VPS" style="font-size: 17.5px; color: #3380b3">VPS</a> <a href="/tags/%E5%9B%BD%E5%86%85/" class="s-tag" title="国内" style="font-size: 10px; color: #666">国内</a> <a href="/tags/BBR/" class="s-tag" title="BBR" style="font-size: 17.5px; color: #3380b3">BBR</a> <a href="/tags/%E7%99%BB%E5%BD%95/" class="s-tag" title="登录" style="font-size: 10px; color: #666">登录</a> <a href="/tags/%E9%9A%8F%E6%9C%BA/" class="s-tag" title="随机" style="font-size: 10px; color: #666">随机</a> <a href="/tags/%E5%8A%A0%E9%80%9F/" class="s-tag" title="加速" style="font-size: 10px; color: #666">加速</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" class="s-tag" title="访问速度" style="font-size: 10px; color: #666">访问速度</a> <a href="/tags/pip2/" class="s-tag" title="pip2" style="font-size: 10px; color: #666">pip2</a> <a href="/tags/PIL/" class="s-tag" title="PIL" style="font-size: 10px; color: #666">PIL</a> <a href="/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/" class="s-tag" title="验证码" style="font-size: 10px; color: #666">验证码</a> <a href="/tags/install/" class="s-tag" title="install" style="font-size: 10px; color: #666">install</a> <a href="/tags/data/" class="s-tag" title="data" style="font-size: 10px; color: #666">data</a> <a href="/tags/nodeJS/" class="s-tag" title="nodeJS" style="font-size: 10px; color: #666">nodeJS</a> <a href="/tags/%E5%AF%86%E9%92%A5/" class="s-tag" title="密钥" style="font-size: 10px; color: #666">密钥</a> <a href="/tags/OpenSSL/" class="s-tag" title="OpenSSL" style="font-size: 10px; color: #666">OpenSSL</a> <a href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" class="s-tag" title="文件路径" style="font-size: 10px; color: #666">文件路径</a> <a href="/tags/%E8%B7%AF%E7%94%B1/" class="s-tag" title="路由" style="font-size: 10px; color: #666">路由</a> <a href="/tags/hexo/" class="s-tag" title="hexo" style="font-size: 10px; color: #666">hexo</a>
     </div>
 </div>
 

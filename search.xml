@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python 用base64 对图片文件的编码和解码处理</title>
+    <url>/posts/2019-12-28-35102.html</url>
+    <content><![CDATA[<p>用base64 对图片文件的编码和解码处理</p>
+<a id="more"></a>
+<pre><code>import base64
+
+def convert(image):
+    f = open(image)
+    img_raw_data = f.read()
+    f.close()
+
+    img_b64_string = base64.b64encode(img_raw_data)
+    convert_img_raw_data = base64.b64decode(img_b64_string)
+
+    t = open(&quot;example.png&quot;, &quot;w+&quot;)
+    t.write(convert_img_raw_data)
+    t.close()
+
+if __name__ == &quot;__main__&quot;:
+    convert(&quot;test.png&quot;)</code></pre>]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>base64</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python 根据字符串随机生成颜色</title>
     <url>/posts/2019-12-28-38278.html</url>
     <content><![CDATA[<p>遇到这么一个需求：根据用户名或用户id，随机生成一个颜色。其实就是用python 根据字符串随机生成颜色。</p>
