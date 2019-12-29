@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/posts/2019-12-29-16107.html</url>
-    <content><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p>
-<a id="more"></a>
-<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>install</tag>
-        <tag>nodeJS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>编写python脚本遍历文件夹并取指定后缀名文件</title>
     <url>/posts/2019-12-29-25741.html</url>
     <content><![CDATA[<p>用python来遍历某个文件并获取指定后缀名文件</p>
@@ -113,7 +92,7 @@ if __name__ == &quot;__main__&quot;:
     <content><![CDATA[<p>遇到这么一个需求：根据用户名或用户id，随机生成一个颜色。其实就是用python 根据字符串随机生成颜色。</p>
 <a id="more"></a>
 <h2 id="python-实现"><a href="#python-实现" class="headerlink" title="python 实现"></a>python 实现</h2><p>下面是python 实现。</p>
-<pre><code>import hashlib
+<pre><code class="python">import hashlib
 
 def hsv2rgb(h, s, v):
     h += 0.618033988749895
@@ -159,7 +138,8 @@ def str2rgb2(obj):
 
     rgb = hsv2rgb(obj_value/max_value, 0.5, 0.95)
 
-    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % c for c in rgb])</code></pre><h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>上面有两种实现，其效果如下：<br><img src="/images/posts/str2rgb.png" alt="str2rgb.png"><br><img src="/images/posts/str2rgb2.png" alt="str2rgb2.png"></p>
+    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % c for c in rgb])</code></pre>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>上面有两种实现，其效果如下：<br><img src="/images/posts/str2rgb.png" alt="str2rgb.png"><br><img src="/images/posts/str2rgb2.png" alt="str2rgb2.png"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>第一种颜色较深，只要传入字符串不同，其颜色就不同。</li>
 <li>第二种颜色较淡，过渡自然，但第二种只有732 种颜色。</li>
@@ -287,6 +267,27 @@ def get_file_checksum(filename):
       <tags>
         <tag>python</tag>
         <tag>md5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/posts/2019-12-24-16107.html</url>
+    <content><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p>
+<a id="more"></a>
+<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>install</tag>
+        <tag>nodeJS</tag>
       </tags>
   </entry>
   <entry>

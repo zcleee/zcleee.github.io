@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.leezc.cn/"/>
-  <updated>2019-12-29T11:28:39.495Z</updated>
+  <updated>2019-12-29T00:07:06.000Z</updated>
   <id>https://blog.leezc.cn/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://blog.leezc.cn/posts/2019-12-29-16107.html"/>
-    <id>https://blog.leezc.cn/posts/2019-12-29-16107.html</id>
-    <published>2019-12-29T11:28:39.495Z</published>
-    <updated>2019-12-29T11:28:39.495Z</updated>
-    
-    <content type="html"><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p><a id="more"></a><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;基于Hexo编写的轻巧简洁小清新博客。&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="hexo" scheme="https://blog.leezc.cn/tags/hexo/"/>
-    
-      <category term="install" scheme="https://blog.leezc.cn/tags/install/"/>
-    
-      <category term="nodeJS" scheme="https://blog.leezc.cn/tags/nodeJS/"/>
-    
-  </entry>
   
   <entry>
     <title>编写python脚本遍历文件夹并取指定后缀名文件</title>
@@ -121,7 +96,7 @@
     <published>2019-12-28T19:02:03.000Z</published>
     <updated>2019-12-28T19:02:03.000Z</updated>
     
-    <content type="html"><![CDATA[<p>遇到这么一个需求：根据用户名或用户id，随机生成一个颜色。其实就是用python 根据字符串随机生成颜色。</p><a id="more"></a><h2 id="python-实现"><a href="#python-实现" class="headerlink" title="python 实现"></a>python 实现</h2><p>下面是python 实现。</p><pre><code>import hashlibdef hsv2rgb(h, s, v):    h += 0.618033988749895    h %= 1    h_i = int(h*6)    f = h*6 - h_i    p = v * (1 - s)    q = v * (1 - f*s)    t = v * (1 - (1 - f) * s)    if h_i == 0:        r, g, b = v, t, p    elif h_i == 1:        r, g, b = q, v, p    elif h_i == 2:        r, g, b = p, v, t    elif h_i == 3:        r, g, b = p, q, v    elif h_i == 4:        r, g, b = t, p, v    elif h_i == 5:        r, g, b = v, p, q    else:        r = g = b = 0    return [int(r*256), int(g*256), int(b*256)]def str2rgb(obj):    digest = hashlib.sha384(str(obj).encode(&#39;utf-8&#39;)).hexdigest()    sub_size = int(len(digest) / 3)    max_value = float(int(&quot;f&quot; * sub_size, 16))    digests = [digest[i * sub_size: (i + 1) * sub_size] for i in range(3)]    rgb = (((int(d, 16) / max_value)+0.618033988749895) % 1 for d in digests)    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % int(c*255 + 0.5 - 0.0000005) for c in rgb])def str2rgb2(obj):    digest = hashlib.sha384(str(obj).encode(&#39;utf-8&#39;)).hexdigest()    obj_value = int(digest, 16)    max_value = float(int(&quot;f&quot; * len(digest), 16))    rgb = hsv2rgb(obj_value/max_value, 0.5, 0.95)    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % c for c in rgb])</code></pre><h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>上面有两种实现，其效果如下：<br><img src="/images/posts/str2rgb.png" alt="str2rgb.png"><br><img src="/images/posts/str2rgb2.png" alt="str2rgb2.png"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul><li>第一种颜色较深，只要传入字符串不同，其颜色就不同。</li><li>第二种颜色较淡，过渡自然，但第二种只有732 种颜色。</li></ul><p>如果为了不同的颜色就使用第一种，如果允许相同的颜色，又要求柔和、自然接近，就考虑第二种。</p>]]></content>
+    <content type="html"><![CDATA[<p>遇到这么一个需求：根据用户名或用户id，随机生成一个颜色。其实就是用python 根据字符串随机生成颜色。</p><a id="more"></a><h2 id="python-实现"><a href="#python-实现" class="headerlink" title="python 实现"></a>python 实现</h2><p>下面是python 实现。</p><pre><code class="python">import hashlibdef hsv2rgb(h, s, v):    h += 0.618033988749895    h %= 1    h_i = int(h*6)    f = h*6 - h_i    p = v * (1 - s)    q = v * (1 - f*s)    t = v * (1 - (1 - f) * s)    if h_i == 0:        r, g, b = v, t, p    elif h_i == 1:        r, g, b = q, v, p    elif h_i == 2:        r, g, b = p, v, t    elif h_i == 3:        r, g, b = p, q, v    elif h_i == 4:        r, g, b = t, p, v    elif h_i == 5:        r, g, b = v, p, q    else:        r = g = b = 0    return [int(r*256), int(g*256), int(b*256)]def str2rgb(obj):    digest = hashlib.sha384(str(obj).encode(&#39;utf-8&#39;)).hexdigest()    sub_size = int(len(digest) / 3)    max_value = float(int(&quot;f&quot; * sub_size, 16))    digests = [digest[i * sub_size: (i + 1) * sub_size] for i in range(3)]    rgb = (((int(d, 16) / max_value)+0.618033988749895) % 1 for d in digests)    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % int(c*255 + 0.5 - 0.0000005) for c in rgb])def str2rgb2(obj):    digest = hashlib.sha384(str(obj).encode(&#39;utf-8&#39;)).hexdigest()    obj_value = int(digest, 16)    max_value = float(int(&quot;f&quot; * len(digest), 16))    rgb = hsv2rgb(obj_value/max_value, 0.5, 0.95)    return &#39;#&#39; + &#39;&#39;.join([&quot;%02x&quot; % c for c in rgb])</code></pre><h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>上面有两种实现，其效果如下：<br><img src="/images/posts/str2rgb.png" alt="str2rgb.png"><br><img src="/images/posts/str2rgb2.png" alt="str2rgb2.png"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul><li>第一种颜色较深，只要传入字符串不同，其颜色就不同。</li><li>第二种颜色较淡，过渡自然，但第二种只有732 种颜色。</li></ul><p>如果为了不同的颜色就使用第一种，如果允许相同的颜色，又要求柔和、自然接近，就考虑第二种。</p>]]></content>
     
     <summary type="html">
     
@@ -209,6 +184,31 @@
       <category term="python" scheme="https://blog.leezc.cn/tags/python/"/>
     
       <category term="md5" scheme="https://blog.leezc.cn/tags/md5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://blog.leezc.cn/posts/2019-12-24-16107.html"/>
+    <id>https://blog.leezc.cn/posts/2019-12-24-16107.html</id>
+    <published>2019-12-24T18:44:19.000Z</published>
+    <updated>2019-12-24T18:44:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>基于Hexo编写的轻巧简洁小清新博客。</p><a id="more"></a><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;基于Hexo编写的轻巧简洁小清新博客。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="hexo" scheme="https://blog.leezc.cn/tags/hexo/"/>
+    
+      <category term="install" scheme="https://blog.leezc.cn/tags/install/"/>
+    
+      <category term="nodeJS" scheme="https://blog.leezc.cn/tags/nodeJS/"/>
     
   </entry>
   
