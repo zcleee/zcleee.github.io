@@ -1,5 +1,5 @@
 (function(window, document) {
-  hljs.initHighlightingOnLoad();
+  if(typeof hljs!='undefined') hljs.initHighlightingOnLoad();
   $('#go-to-top').on('click', function() {
 	$("html, body").animate({
 	  "scrollTop": 0
